@@ -31,13 +31,13 @@ module.exports = {
       const { email, password } = request.body;
 
       if (!email || !password) {
-        return response.status(442).send({ error: 'Invalid email or password' });
+        return response.status(442).send({ error: 'Invalid email or password.' });
       }
 
       const user = await User.findOne({ email });
 
-      if (!user) {
-        return response.status(404).send({ error: 'Invalid password or email' });
+      if (!user) { 
+        return response.status(404).send({ error: 'Invalid password or email.' });
       }
 
       try {
@@ -48,7 +48,7 @@ module.exports = {
         return response.send({ token });
 
       } catch (err) {
-        return response.status(401).send({ error: 'Invalid password or email' })
+        return response.status(401).send({ error: 'Invalid password or email.' })
       }
 
     } catch (err) {
