@@ -19,7 +19,9 @@ module.exports = {
         message: "Your account has been created succesfully." 
       });
     } catch(err) {
-      return response.status(500).send({ message: "Error to create your account." })
+      return response.status(422).send({ 
+        message: "Failed to create your account." 
+      });
     }
   },
 
@@ -27,9 +29,9 @@ module.exports = {
     try {
       const { email, password } = request.body;
 
-      return response.send({ message: "Log in succesfully."})
+      return response.send({ message: "Log in succesfully."});
     } catch (err) {
-      return response.status(500).send({ message: "Failed to log in." })
+      return response.status(422).send({ message: "Failed to log in." });
     }
   }
 }
