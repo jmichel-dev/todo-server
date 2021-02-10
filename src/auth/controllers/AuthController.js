@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const User = mongoose.model('User');
+const jwt = require('jsonwebtoken');
 
 module.exports = {
   async register(request, response) {
@@ -29,7 +30,27 @@ module.exports = {
     try {
       const { email, password } = request.body;
 
-      return response.send({ message: "Log in succesfully."});
+      if (!email || !password) {
+        return response.status(442).send({ error: 'Invalid email or password' });
+      }
+
+      const user = await User.findOne({ email });
+
+      if (!user) {
+        return response.status(404).send({ error: 'Invalid password or email' });
+      }
+
+      try {
+        await user.comparePassword(password);
+
+        const token = jwt.sign({ userId: user._id }, 'MY_SECRET_KEY');
+
+        return response.send({ token });
+
+      } catch (err) {
+        return response.status(401).send({ error: 'Invalid password or email' })
+      }
+
     } catch (err) {
       return response.status(422).send({ message: "Failed to log in." });
     }
