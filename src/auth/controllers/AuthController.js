@@ -6,6 +6,15 @@ module.exports = {
     try {
       const { firstName, lastName, email, password } = request.body;
 
+      const user = new User({
+        firstName,
+        lastName,
+        email,
+        password,
+      });
+
+      await user.save();
+
       return response.send({ 
         message: "Your account has been created succesfully." 
       });
