@@ -1,7 +1,10 @@
+const mongoose = require('mongoose');
+const User = mongoose.model('User');
+
 module.exports = {
   async register(request, response) {
     try {
-      const {firstName, lastName, email, password } = request.body;
+      const { firstName, lastName, email, password } = request.body;
 
       return response.send({ 
         message: "Your account has been created succesfully." 
