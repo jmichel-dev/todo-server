@@ -1,11 +1,13 @@
 require('dotenv').config();
 require('./models/User');
+require('./models/Task');
 
 const express = require('express');
 const mongoose = require("mongoose");
 const helmet = require("helmet");
 
 const auth = require("./auth/routes");
+const task = require('./task/routes');
 
 const app = express();
 
@@ -31,6 +33,9 @@ app.use(helmet());
 // ROUTES
 // Auth
 app.use('/auth', auth);
+
+// Task
+app.use(task);
 
 // PORT
 app.listen(3000, () => {
