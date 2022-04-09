@@ -23,7 +23,7 @@ app.use(
     if (error instanceof AppError) {
       return response
         .status(error.statusCode)
-        .json({ statuds: 'error', message: error.message });
+        .json({ status: 'error', message: error.message });
     }
 
     return response.status(500).json({
